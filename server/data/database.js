@@ -30,15 +30,42 @@ const features = [
 
 
 function getUser(id) {
-  return id === lvarayut.id ? lvarayut : null;
+  User.findOne({ _id: id }, (err, user) => {
+    if (err) {
+      console.log(err);
+      return null;
+    }
+    if (!user) {
+      return null;
+    }
+    return user;
+  });
 }
 
 function getFeature(id) {
-  return features.find(w => w.id === id);
+  Feature.findOne({ _id: id }, (err, feature) => {
+    if (err) {
+      console.log(err);
+      return null;
+    }
+    if (!feature) {
+      return null;
+    }
+    return feature;
+  });
 }
 
 function getFeatures() {
-  return features;
+  Feature.find({}, (err, features) => {
+    if (err) {
+      console.log(err);
+      return null;
+    }
+    if (!features) {
+      return null;
+    }
+    return features;
+  });
 }
 
 export {
