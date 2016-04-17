@@ -40,6 +40,16 @@ UserSchema.pre('save', (next) => {
   });
 });
 
+UserSchema.methods.verifyPassword = (password, next) => {
+  bcrypt.compare(password, this.password, (error, isMatch) => {
+    if (error) {
+      return next(error);
+    }
+    next(null, isMatch);
+  });
+};
+
+
 const User = mongoose.model('User', UserSchema);
 
 export default User;
